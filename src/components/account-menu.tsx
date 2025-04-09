@@ -6,10 +6,11 @@ import { getProfile } from '@/api/get-profile'
 import { getManagedRestaurant } from './get-managed-restaurant'
 import { StoreProfileDialog } from './store-profile-dialog'
 import { Button } from './ui/button'
-import { Dialog, DialogTrigger } from './ui/dialog'
+import { Dialog, DialogOverlay, DialogPortal, DialogTrigger } from './ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -21,17 +22,19 @@ export function AccoutMenu() {
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
+    staleTime: Infinity,
   })
 
   const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } =
     useQuery({
       queryKey: ['managed-restaurant'],
       queryFn: getManagedRestaurant,
+      staleTime: Infinity,
     })
 
   return (
     <Dialog>
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
@@ -62,21 +65,29 @@ export function AccoutMenu() {
               </>
             )}
           </DropdownMenuLabel>
+
           <DropdownMenuSeparator />
-          <DialogTrigger asChild>
-            <DropdownMenuItem>
-              <Building className="mr-2 h-4 w-4" />
-              <span>Perfil da loja</span>
+
+          <DropdownMenuGroup>
+            <DialogTrigger asChild>
+              <DropdownMenuItem>
+                <Building className="mr-2 h-4 w-4" />
+                <span>Perfil da loja</span>
+              </DropdownMenuItem>
+            </DialogTrigger>
+            <DropdownMenuItem className="text-rose-500 dark:text-rose-400">
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Sair</span>
             </DropdownMenuItem>
-          </DialogTrigger>
-          <DropdownMenuItem className="text-rose-500 dark:text-rose-400">
-            <LogOut className="mr-2 h-4 w-4" />
-            <span>Sair</span>
-          </DropdownMenuItem>
+          </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <StoreProfileDialog />
+      <DialogPortal>
+        <DialogOverlay>
+          <StoreProfileDialog />
+        </DialogOverlay>
+      </DialogPortal>
     </Dialog>
   )
 }
