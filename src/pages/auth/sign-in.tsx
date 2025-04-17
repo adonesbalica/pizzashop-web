@@ -6,7 +6,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { singIn } from '@/api/sing-in'
+import { signIn } from '@/api/sign-in'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -17,7 +17,7 @@ const signInForm = z.object({
 
 type SignInForm = z.infer<typeof signInForm>
 
-export function SingIn() {
+export function SignIn() {
   const [searchParams] = useSearchParams()
 
   const {
@@ -32,7 +32,7 @@ export function SingIn() {
   })
 
   const { mutateAsync: authenticate } = useMutation({
-    mutationFn: singIn,
+    mutationFn: signIn,
   })
 
   async function handleSignIn(data: SignInForm) {
