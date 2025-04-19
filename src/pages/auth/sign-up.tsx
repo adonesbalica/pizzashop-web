@@ -47,7 +47,7 @@ export function SignUp() {
       toast.success('Restaurante cadastrado com sucesso!', {
         action: {
           label: 'Login',
-          onClick: () => navigate(`/sing-in?email=${data.email}`),
+          onClick: () => navigate(`/sign-in?email=${data.email}`),
         },
       })
     } catch {
@@ -60,7 +60,7 @@ export function SignUp() {
       <Helmet title="Cadastro" />
       <div className="p-8">
         <Button asChild className="absolute right-8 top-8" variant="ghost">
-          <Link to="/sing-in" className="">
+          <Link to="/sign-in" className="">
             Fazer login
           </Link>
         </Button>

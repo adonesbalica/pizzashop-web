@@ -42,12 +42,12 @@ export function AccoutMenu() {
   const { isPending: isSigningOut, mutateAsync: handleSignOut } = useMutation({
     mutationFn: signOut,
     onSuccess: () => {
-      navigate('/sing-in', { replace: true })
+      navigate('/sign-in', { replace: true })
     },
   })
 
   if (managedRestaurantError) {
-    navigate('/sing-in', { replace: true })
+    navigate('/sign-in', { replace: true })
   }
 
   return (
